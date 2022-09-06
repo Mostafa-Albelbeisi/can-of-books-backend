@@ -53,9 +53,10 @@ async function seedData() {
 //http://localhost:3001/getBooks/
 app.get('/getBooks', getBooksHandler);
 app.post('/addBooks', addBooksHandler);
-app.delete('deleteBooks/:id', deleteBooksHandler);
+app.delete('/deleteBooks/:id', deleteBooksHandler);
+app.put('/updateBooks/:id', updateBooksHandler)
 
-// http://localhost:3010/
+// http://localhost:3001/
 app.get("/", (request, response) => {
   response.send("Hi from the home route");
 });
@@ -94,18 +95,41 @@ async function addBooksHandler(request, response) {
     }
   });
 }
-
+//here delete a books
 function deleteBooksHandler(request, response) {
   const booksID = request.params.id;
   Kitten.deleteOne({ _id: booksID }, (err, result) => {
-    Kitten.find({}, (err, result) => {
+    Kitten,find({}, (err, result) => {
       if (err) {
         console.log(err);
       } else {
         response.send(result);
       }
-    });
-  });
+    })
+  })
+}
+
+function updateBooksHandler(request, response){
+  const id = request.params.id;
+  const { title, discreption, status } = request.body;
+  console.log(request.body)
+  Kitten.findByIdAndUpdate(id, {title, discreption, status}, (err, result) => {
+    if(err){
+      console.log(err)
+    }
+    else{
+      Kitten.find({}, (err, result) =>{
+        if(err){
+          console.log(err);
+
+        }
+        else{
+          response.send(result);
+        }
+      })
+    }
+  })
+
 }
 
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
