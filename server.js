@@ -99,7 +99,7 @@ async function addBooksHandler(request, response) {
 function deleteBooksHandler(request, response) {
   const booksID = request.params.id;
   Kitten.deleteOne({ _id: booksID }, (err, result) => {
-    Kitten,find({}, (err, result) => {
+    Kitten.find({}, (err, result) => {
       if (err) {
         console.log(err);
       } else {
@@ -109,21 +109,21 @@ function deleteBooksHandler(request, response) {
   })
 }
 
-function updateBooksHandler(request, response){
+function updateBooksHandler(request, response) {
   const id = request.params.id;
   const { title, discreption, status } = request.body;
   console.log(request.body)
-  Kitten.findByIdAndUpdate(id, {title, discreption, status}, (err, result) => {
-    if(err){
+  Kitten.findByIdAndUpdate(id, { title, discreption, status }, (err, result) => {
+    if (err) {
       console.log(err)
     }
-    else{
-      Kitten.find({}, (err, result) =>{
-        if(err){
+    else {
+      Kitten.find({}, (err, result) => {
+        if (err) {
           console.log(err);
 
         }
-        else{
+        else {
           response.send(result);
         }
       })
