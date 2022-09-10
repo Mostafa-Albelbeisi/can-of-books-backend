@@ -12,7 +12,7 @@ const mongoose = require("mongoose");
 
 const PORT = process.env.PORT || 3001;
 
-mongoose.connect("mongodb://localhost:27017/books", {
+mongoose.connect('mongodb://MostafaAlbelbeisi:0000@ac-kvvwvn9-shard-00-00.7gjayce.mongodb.net:27017,ac-kvvwvn9-shard-00-01.7gjayce.mongodb.net:27017,ac-kvvwvn9-shard-00-02.7gjayce.mongodb.net:27017/?ssl=true&replicaSet=atlas-dyqh95-shard-0&authSource=admin&retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -41,14 +41,14 @@ async function seedData() {
     title: "THIS SIDE OF PARADISE BY F. SCOTT FITZGERALD",
     discreption:
       "Fitzgerald employed a poem by World War I poet Rupert Brooke, Tiare Tahiti, to name his debut 1920 novel This Side of Paradise.",
-    status: " Not Available",
+    status: " Not-Available",
   });
 
   await firstBook.save();
   await secondtBook.save();
   await thirdBook.save();
 }
-// seedData();
+seedData();
 
 //http://localhost:3001/getBooks/
 app.get('/getBooks', getBooksHandler);
